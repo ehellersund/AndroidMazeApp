@@ -24,6 +24,22 @@
             android:name=".GeneratingActivity"
             android:exported="true">
         </activity>
+        <activity
+            android:name=".PlayManuallyActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".PlayAnimationActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".WinningActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".LosingActivity"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>

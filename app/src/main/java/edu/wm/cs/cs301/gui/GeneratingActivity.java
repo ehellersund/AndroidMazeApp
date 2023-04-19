@@ -1,5 +1,6 @@
 package edu.wm.cs.cs301.gui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -73,6 +74,8 @@ public class GeneratingActivity extends AppCompatActivity implements Runnable {
         if (selectedDriver == true && loaded == true) {
             if (driverButton.getText().equals("Manual")) {
                 System.out.println("Manual selected");
+                Intent man = new Intent(this, PlayManuallyActivity.class);
+                startActivity(man);
             }
             else if (selectedRobot == false) {
                 System.out.println("Robot driver selected but no robot quality selected");
@@ -80,6 +83,8 @@ public class GeneratingActivity extends AppCompatActivity implements Runnable {
             }
             else {
                 System.out.println("Robot driver selected");
+                Intent anim = new Intent(this, PlayAnimationActivity.class);
+                startActivity(anim);
             }
         }
         else {

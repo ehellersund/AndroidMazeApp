@@ -1,4 +1,14 @@
 package edu.wm.cs.cs301.gui;
 
-public class PlayManuallyActivity {
+import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class PlayManuallyActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.manual);
+    }
+
 }
