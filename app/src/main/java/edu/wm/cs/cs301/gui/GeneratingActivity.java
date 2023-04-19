@@ -1,17 +1,23 @@
 package edu.wm.cs.cs301.gui;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class GeneratingActivity extends AppCompatActivity implements Runnable {
 
     RadioGroup driver;
+    RadioGroup robot;
     RadioButton driverButton;
-    boolean loaded = false;
+    RadioButton robotButton;
+    boolean loaded = false; //Signifies maze is loaded
+    boolean selectedDriver = false; //Signifies user has selected a driver
+    boolean selectedRobot = false; //Signifies user has selected a robot
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +25,7 @@ public class GeneratingActivity extends AppCompatActivity implements Runnable {
         setContentView(R.layout.generating);
 
         driver = findViewById(R.id.driverGroup);
+        robot = findViewById(R.id.robotGroup);
 
     }
 
@@ -27,8 +34,32 @@ public class GeneratingActivity extends AppCompatActivity implements Runnable {
         super.onStart();
 
         progressBar();
+    }
 
-        switchToPlaying();
+    //Selection of driver
+    public void checkButton(View v) {
+        int id = driver.getCheckedRadioButtonId();
+        driverButton = findViewById(id);
+
+        Toast.makeText(this, "Selected " + driverButton.getText(), Toast.LENGTH_SHORT).show();
+        selectedDriver = true;
+
+        if (loaded == true) {
+            switchToPlaying();
+        }
+    }
+
+    //Selection of robot quality
+    public void checkButton2(View v) {
+        int id2 = robot.getCheckedRadioButtonId();
+        robotButton = findViewById(id2);
+
+        Toast.makeText(this, "Selected " + robotButton.getText() + " quality", Toast.LENGTH_SHORT).show();
+        selectedRobot = true;
+
+        if (loaded == true) {
+            switchToPlaying();
+        }
     }
 
     //Begins running the thread for the progressbar to run
@@ -39,7 +70,21 @@ public class GeneratingActivity extends AppCompatActivity implements Runnable {
 
     //Switches to manual or animation activity
     private void switchToPlaying() {
-
+        if (selectedDriver == true && loaded == true) {
+            if (driverButton.getText().equals("Manual")) {
+                System.out.println("Manual selected");
+            }
+            else if (selectedRobot == false) {
+                System.out.println("Robot driver selected but no robot quality selected");
+                //"You must select a robot quality!"
+            }
+            else {
+                System.out.println("Robot driver selected");
+            }
+        }
+        else {
+            System.out.println("Maze loaded but still waiting on user selection");
+        }
     }
 
     //Separated the progress bar into a thread so it doesn't slow everything else down
@@ -59,5 +104,6 @@ public class GeneratingActivity extends AppCompatActivity implements Runnable {
         }
 
         loaded = true;
+        switchToPlaying();
     }
 }

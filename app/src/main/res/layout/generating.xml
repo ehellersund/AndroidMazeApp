@@ -36,6 +36,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="99dp"
             android:text="Manual"
+            android:onClick="checkButton"
             app:layout_constraintStart_toEndOf="@+id/textView"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,6 +46,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="99dp"
             android:text="WallFollower"
+            android:onClick="checkButton"
             app:layout_constraintStart_toEndOf="@+id/radioButton"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -54,6 +56,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="100dp"
             android:text="Wizard"
+            android:onClick="checkButton"
             app:layout_constraintStart_toEndOf="@+id/radioButton2"
             app:layout_constraintTop_toTopOf="parent" />
     </RadioGroup>
@@ -89,6 +92,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="99dp"
             android:text="Premium"
+            android:onClick="checkButton2"
             app:layout_constraintStart_toEndOf="@+id/textView"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -98,6 +102,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="99dp"
             android:text="Mediocre"
+            android:onClick="checkButton2"
             app:layout_constraintStart_toEndOf="@+id/radioButton"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -107,6 +112,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="100dp"
             android:text="So-so"
+            android:onClick="checkButton2"
             app:layout_constraintStart_toEndOf="@+id/radioButton2"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -116,6 +122,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="100dp"
             android:text="Shaky"
+            android:onClick="checkButton2"
             app:layout_constraintStart_toEndOf="@+id/radioButton2"
             app:layout_constraintTop_toTopOf="parent" />
 
