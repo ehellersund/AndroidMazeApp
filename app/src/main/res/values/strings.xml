@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">AMazeByEvanHellersund</string>
+
+    <string-array name="mazes">
+        <item>DFS</item>
+        <item>Prim</item>
+        <item>Boruvka</item>
+    </string-array>
 </resources>
