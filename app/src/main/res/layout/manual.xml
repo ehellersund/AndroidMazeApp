@@ -37,6 +37,7 @@
         android:layout_height="55dp"
         android:layout_marginStart="25dp"
         android:layout_marginTop="50dp"
+        android:checked="false"
         android:text="ToggleButton"
         android:textOff="Show\nSolution"
         android:textOn="Hide\nSolution"
@@ -74,10 +75,10 @@
         android:layout_height="75dp"
         android:layout_marginStart="158dp"
         android:layout_marginEnd="159dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="20dp"
         android:rotation="-90"
         android:text="➤"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/JUMP"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -98,10 +99,20 @@
         android:layout_height="75dp"
         android:layout_marginStart="30dp"
         android:layout_marginBottom="45dp"
-        android:rotation="0"
         android:text="➤"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/FORWARD" />
+
+    <Button
+        android:id="@+id/JUMP"
+        android:layout_width="70dp"
+        android:layout_height="75dp"
+        android:layout_marginBottom="45dp"
+        android:text="JUMP"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/RIGHT"
+        app:layout_constraintStart_toEndOf="@+id/LEFT" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

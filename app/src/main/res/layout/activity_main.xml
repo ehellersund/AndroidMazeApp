@@ -37,7 +37,9 @@
         android:layout_marginEnd="65dp"
         android:ems="10"
         android:inputType="number"
-        android:textSize="12sp"
+        android:text="0"
+        android:textAlignment="center"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toEndOf="@+id/textView4"
@@ -77,19 +79,20 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <ToggleButton
-        android:id="@+id/toggleButton"
+        android:id="@+id/includeRooms"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="104dp"
+        android:checked="true"
         android:text="ToggleButton"
-        android:textOff="Yes"
-        android:textOn="No"
+        android:textOff="No"
+        android:textOn="Yes"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/mazeSelector" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/mazeSelector"
         android:layout_width="103dp"
         android:layout_height="48dp"
         android:layout_marginTop="12dp"

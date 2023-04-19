@@ -6,11 +6,16 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class GeneratingActivity extends AppCompatActivity implements Runnable {
+    int difficulty;
+    String maze;
+    boolean hasRooms;
 
     RadioGroup driver;
     RadioGroup robot;
@@ -25,9 +30,13 @@ public class GeneratingActivity extends AppCompatActivity implements Runnable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.generating);
 
+        Intent intent = getIntent();
+        difficulty = intent.getIntExtra(AMazeActivity.DIFFICULTY, 0);
+        maze = intent.getStringExtra(AMazeActivity.MAZE);
+        hasRooms = intent.getBooleanExtra(AMazeActivity.ROOMS, true);
+
         driver = findViewById(R.id.driverGroup);
         robot = findViewById(R.id.robotGroup);
-
     }
 
     @Override
@@ -35,6 +44,9 @@ public class GeneratingActivity extends AppCompatActivity implements Runnable {
         super.onStart();
 
         progressBar();
+        System.out.println(difficulty);
+        System.out.println(maze);
+        System.out.println(hasRooms);
     }
 
     //Selection of driver
