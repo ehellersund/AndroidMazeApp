@@ -58,4 +58,9 @@ public class AMazeActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
+        public void win() {
+            Intent win = new Intent(this, WinningActivity.class);
+            startActivity(win);
+        }
+
 }
