@@ -3,7 +3,7 @@
  */
 package edu.wm.cs.cs301.generation;
 
-import gui.Constants;
+import edu.wm.cs.cs301.gui.Constants;
 
 /**
  * Class encapsulates access to all information that constitutes a maze.

@@ -249,7 +249,7 @@ public class ColorTheme {
 		 * of yellowWM and lightGray towards goldWM and greenWM as final
 		 * color settings close to the exit
 		 * @param percentToExit describes how far it is to the exit as a percentage value
-		 * @param top is true for the top rectangle, false for the bottom //TODO
+		 * //@param top is true for the top rectangle, false for the bottom //TODO
 		 * @return the color to use for the background rectangle
 		 */
 		@Override

@@ -1,3 +1,4 @@
+
 package edu.wm.cs.cs301.gui;
 
 //import java.awt.Font;
@@ -19,6 +20,7 @@ import edu.wm.cs.cs301.gui.ColorTheme.MazeColors;
  * @author Peter Kemper
  */
 public class CompassRose {
+
 	private static final long serialVersionUID = 1916497172430988388L;
 	
 	
