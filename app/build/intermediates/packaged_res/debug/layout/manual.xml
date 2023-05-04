@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ToggleButton
+        android:id="@+id/wallshow"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="155dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="156dp"
+        android:text="ToggleButton"
+        android:textOff="Show\nWalls"
+        android:textOn="Hide\nWalls"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ToggleButton
+        android:id="@+id/mapshow"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="25dp"
+        android:text="ToggleButton"
+        android:textOff="Show\nMap"
+        android:textOn="Hide\nMap"
+        app:layout_constraintEnd_toStartOf="@+id/wallshow"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ToggleButton
+        android:id="@+id/solutionshow"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="50dp"
+        android:checked="false"
+        android:text="ToggleButton"
+        android:textOff="Show\nSolution"
+        android:textOn="Hide\nSolution"
+        app:layout_constraintStart_toEndOf="@+id/wallshow"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="31dp"
+        android:max="100"
+        android:progress="50"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wallshow" />
+
+    <TextView
+        android:id="@+id/scale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="sans-serif-black"
+        android:text="MAP\nSCALE"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/seekBar"
+        app:layout_constraintTop_toBottomOf="@+id/mapshow" />
+
+    <Button
+        android:id="@+id/FORWARD"
+        android:layout_width="70dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="158dp"
+        android:layout_marginEnd="159dp"
+        android:layout_marginBottom="20dp"
+        android:rotation="-90"
+        android:text="➤"
+        app:layout_constraintBottom_toTopOf="@+id/JUMP"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/LEFT"
+        android:layout_width="70dp"
+        android:layout_height="75dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="45dp"
+        android:rotation="-180"
+        android:text="➤"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/FORWARD" />
+
+    <Button
+        android:id="@+id/RIGHT"
+        android:layout_width="70dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="45dp"
+        android:text="➤"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/FORWARD" />
+
+    <Button
+        android:id="@+id/JUMP"
+        android:layout_width="70dp"
+        android:layout_height="75dp"
+        android:layout_marginBottom="45dp"
+        android:text="JUMP"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/RIGHT"
+        app:layout_constraintStart_toEndOf="@+id/LEFT" />
+
+    <edu.wm.cs.cs301.gui.MazePanel
+
+        android:id="@+id/custView"
+
+        android:layout_width="250dp"
+
+        android:layout_height="250dp"
+
+        android:layout_margin="5dp"
+
+        app:layout_constraintBottom_toTopOf="@+id/FORWARD"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar"
+        custom:circleColor="#ff0099"
+        custom:circleLabel="Hello"
+        custom:labelColor="#ffff66" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
