@@ -13,7 +13,7 @@ import android.widget.ToggleButton;
 
 public class AMazeActivity extends AppCompatActivity {
     public static final String DIFFICULTY = "edu.wm.cs.cs301.DIFFICULTY";
-    public static final String MAZE = "edu.wm.cs.cs301.MAZE";
+    public static final String MAZE = "edu.wm.cs.cs301.MAZE"; //pre conversion to Order.Builder
     public static final String ROOMS = "edu.wm.cs.cs301.ROOMS";
     private Button explore;
     private Button revisit;

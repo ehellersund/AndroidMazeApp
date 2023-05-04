@@ -12,6 +12,10 @@ import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import edu.wm.cs.cs301.generation.Maze;
+import edu.wm.cs.cs301.generation.MazeFactory;
+import edu.wm.cs.cs301.generation.Order;
+
 public class GeneratingActivity extends AppCompatActivity implements Runnable {
     int difficulty;
     String maze;
@@ -31,9 +35,9 @@ public class GeneratingActivity extends AppCompatActivity implements Runnable {
         setContentView(R.layout.generating);
 
         Intent intent = getIntent();
-        difficulty = intent.getIntExtra(AMazeActivity.DIFFICULTY, 0);
-        maze = intent.getStringExtra(AMazeActivity.MAZE);
-        hasRooms = intent.getBooleanExtra(AMazeActivity.ROOMS, true);
+        difficulty = intent.getIntExtra(AMazeActivity.DIFFICULTY, 0);     //aka level
+        maze = intent.getStringExtra(AMazeActivity.MAZE);                           //aka builder
+        hasRooms = intent.getBooleanExtra(AMazeActivity.ROOMS, true);    //aka perfect
 
         driver = findViewById(R.id.driverGroup);
         robot = findViewById(R.id.robotGroup);
@@ -47,6 +51,21 @@ public class GeneratingActivity extends AppCompatActivity implements Runnable {
         System.out.println(difficulty);
         System.out.println(maze);
         System.out.println(hasRooms);
+
+        generate(maze);
+    }
+
+    private void generate(String preOrder) {
+        switch(preOrder) {
+            case "DFS":
+                break;
+            case "PRIM":
+                break;
+            case "BORUVKA":
+                break;
+        }
+        System.out.println(this);
+
     }
 
     //Selection of driver

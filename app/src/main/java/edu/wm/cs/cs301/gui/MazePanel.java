@@ -20,15 +20,23 @@ public class MazePanel extends View {
     public MazePanel(Context context, AttributeSet attrs) {
         super(context, attrs);
         //init();
+        myTestImage(canvas);
     }
 
     public MazePanel(Context c) {
         this(c, null);
         //init();
+        myTestImage(canvas);
     }
 
     void myTestImage(Canvas c) {
+        paint.setColor(Color.RED);
+        paint.setStyle(Paint.Style.FILL);
+        canvas.drawOval(0, 0, 300, 300, paint);
 
+        paint.setColor(Color.YELLOW);
+        canvas.drawRect(50, 50, 450,450, paint);
+        paint.setColor(Color.BLUE);
     }
 
     private void init() {
@@ -39,7 +47,7 @@ public class MazePanel extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
+        /*
         paint = new Paint(0);
         paint.setColor(Color.BLUE);
 
@@ -50,6 +58,7 @@ public class MazePanel extends View {
 
         RectF Rect = new RectF(left, top, right, bottom);
         canvas.drawRect(Rect, paint);
+         */
     }
 
 
