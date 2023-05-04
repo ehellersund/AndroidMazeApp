@@ -129,10 +129,7 @@
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar"
-        custom:circleColor="#ff0099"
-        custom:circleLabel="Hello"
-        custom:labelColor="#ffff66" />
+        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
