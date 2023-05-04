@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">AMazeByEvanHellersund</string>
+
+    <string-array name="mazes">
+        <item>DFS</item>
+        <item>Prim</item>
+        <item>Boruvka</item>
+    </string-array>
+
+    <string-array name="drivers">
+        <item>Manual</item>
+        <item>WallFollower</item>
+        <item>Wizard</item>
+    </string-array>
+
+    <string-array name="robots">
+        <item>Premium</item>
+        <item>Mediocre</item>
+        <item>Soso</item>
+        <item>Shaky</item>
+    </string-array>
+
+</resources>
