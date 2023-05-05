@@ -16,6 +16,8 @@ public class PlayManuallyActivity extends AppCompatActivity {
 
         //mazePanel = (MazePanel) findViewById(R.id.mazePanel);
 
+
+
     }
 
 }

@@ -16,9 +16,10 @@ import edu.wm.cs.cs301.generation.Maze;
 import edu.wm.cs.cs301.generation.MazeFactory;
 import edu.wm.cs.cs301.generation.Order;
 
-public class GeneratingActivity extends AppCompatActivity implements Runnable {
+public class GeneratingActivity extends AppCompatActivity implements Runnable, Order {
     int difficulty;
-    String maze;
+    String maze;            //builder pre-conversion from previous activity
+    Order.Builder builder;  //builder post-conversion from previous activity
     boolean hasRooms;
 
     RadioGroup driver;
@@ -36,7 +37,7 @@ public class GeneratingActivity extends AppCompatActivity implements Runnable {
 
         Intent intent = getIntent();
         difficulty = intent.getIntExtra(AMazeActivity.DIFFICULTY, 0);     //aka level
-        maze = intent.getStringExtra(AMazeActivity.MAZE);                           //aka builder
+        maze = intent.getStringExtra(AMazeActivity.MAZE);                           //aka builder pre-conversion
         hasRooms = intent.getBooleanExtra(AMazeActivity.ROOMS, true);    //aka perfect
 
         driver = findViewById(R.id.driverGroup);
@@ -57,15 +58,19 @@ public class GeneratingActivity extends AppCompatActivity implements Runnable {
 
     private void generate(String preOrder) {
         switch(preOrder) {
-            case "DFS":
-                break;
-            case "PRIM":
-                break;
-            case "BORUVKA":
-                break;
+        case "DFS":
+            builder = Builder.DFS;
+            break;
+        case "PRIM":
+            builder = Builder.Prim;
+            break;
+        case "BORUVKA":
+        default:
+            builder = Builder.DFS;
+            break;
         }
-        System.out.println(this);
-
+        MazeFactory fac = new MazeFactory();
+        fac.order(this);
     }
 
     //Selection of driver
@@ -141,5 +146,37 @@ public class GeneratingActivity extends AppCompatActivity implements Runnable {
 
         loaded = true;
         switchToPlaying();
+    }
+
+    @Override
+    public int getSkillLevel() {
+        return difficulty;
+    }
+
+    @Override
+    public Builder getBuilder() {
+        return builder;
+    }
+
+    @Override
+    public boolean isPerfect() {
+        return hasRooms;
+    }
+
+    @Override
+    public int getSeed() {
+        return 0;
+    }
+
+    @Override
+    public void deliver(Maze mazeConfig) {
+        MazeObject.setMaze(mazeConfig);
+        //System.out.println(MazeObject.getMaze().getClass().getName()); //Checking to make sure it worked right
+        System.out.println("Delivered maze");
+    }
+
+    @Override
+    public void updateProgress(int percentage) {
+
     }
 }
