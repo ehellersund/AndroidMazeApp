@@ -2,6 +2,7 @@ package edu.wm.cs.cs301.gui;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Path;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.graphics.Canvas;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
 
+import java.lang.Integer;
 
 import androidx.annotation.Nullable;
 
@@ -21,64 +23,32 @@ public class MazePanel extends View implements P7PanelS23 {
         super(context, attrs, defStyle);
         init();
     }
-    /*
+
     public MazePanel(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
-        //myTestImage(canvas);
     }
+
     public MazePanel(Context context) {
-        super(context, null);
+        super(context);
         init();
     }
-     */
 
     void myTestImage(Canvas c) {
-        paint.setColor(Color.RED);
-        paint.setStyle(Paint.Style.FILL);
-        canvas.drawOval(0, 0, 300, 300, paint);
-
-        paint.setColor(Color.YELLOW);
-        canvas.drawRect(50, 50, 450,450, paint);
-        paint.setColor(Color.BLUE);
+        //
     }
 
     private void init() {
-        //bitmap=Bitmap.createBitmap(400,400, Bitmap.Config.ARGB_8888);
         paint = new Paint();
-        bitmap=Bitmap.createBitmap(400,400, Bitmap.Config.ARGB_8888);
-        canvas=new Canvas(bitmap);
+        bitmap = Bitmap.createBitmap(400,400, Bitmap.Config.ARGB_8888);
+        canvas = new Canvas(bitmap);
+
         //addBackground(0);
     }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-
-        //paint.setColor(Color.RED);
-        //addFilledRectangle(50, 50, 100, 100);
-
-
-        //bitmap=Bitmap.createBitmap(400,400, Bitmap.Config.ARGB_8888);
-        //canvas = new Canvas();
-        //addBackground(0);
-
-        paint = new Paint(0);
-        paint.setColor(Color.BLUE);
-
-        float left = 0, top = 0; // basically (X1, Y1)
-
-        float right = left + 400; // width (distance from X1 to X2)
-        float bottom = top + 400; // height (distance from Y1 to Y2)
-
-
-
-    }
-
 
     @Override
     public void commit() {
-
+        invalidate(); //Makes panel redraw
     }
 
     @Override
@@ -117,34 +87,56 @@ public class MazePanel extends View implements P7PanelS23 {
 
     @Override
     public void addFilledRectangle(int x, int y, int width, int height) {
-        //x, y, x+width, y+height
         paint.setStyle(Paint.Style.FILL);
-        canvas.drawRect(x,y,x+width,y+width, paint);
+        canvas.drawRect(x, y, width + x, height + y, paint);
     }
 
     @Override
     public void addFilledPolygon(int[] xPoints, int[] yPoints, int nPoints) {
+        paint.setStyle(Paint.Style.FILL);
 
+        Path path = new Path();
+        path.moveTo(xPoints[0], yPoints[0]); //start
+
+        for (int i=1; i < nPoints; i++) {
+            path.lineTo(xPoints[i], yPoints[i]); //iterate through points
+        }
+
+        path.lineTo(xPoints[0], yPoints[0]); //return back to origin
+        canvas.drawPath(path, paint);
     }
 
     @Override
     public void addPolygon(int[] xPoints, int[] yPoints, int nPoints) {
+        paint.setStyle(Paint.Style.STROKE);
 
+        Path path = new Path();
+        path.moveTo(xPoints[0], yPoints[0]); //start
+
+        for (int i=1; i < nPoints; i++) {
+            path.lineTo(xPoints[i], yPoints[i]); //iterate through points
+        }
+
+        path.lineTo(xPoints[0], yPoints[0]); //return back to origin
+        canvas.drawPath(path, paint);
     }
 
     @Override
     public void addLine(int startX, int startY, int endX, int endY) {
-
+        canvas.drawLine(startX, startY, endX, endY, paint);
     }
 
     @Override
     public void addFilledOval(int x, int y, int width, int height) {
-
+        paint.setStyle(Paint.Style.FILL);
+        canvas.drawOval(x, y, width, height, paint);
     }
 
     @Override
     public void addArc(int x, int y, int width, int height, int startAngle, int arcAngle) {
-
+        Path path = new Path();
+        path.addArc(x, y, width, height, startAngle, arcAngle);
+        canvas.drawPath(path, paint);
     }
 
     @Override
@@ -155,5 +147,10 @@ public class MazePanel extends View implements P7PanelS23 {
     @Override
     public void setRenderingHint(P7RenderingHints hintKey, P7RenderingHints hintValue) {
 
+    }
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        canvas.drawBitmap(bitmap, 0,0,  paint);
     }
 }

@@ -15,13 +15,14 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-    sourceSets {
-        main {
-            java {
-                exclude '**/CompassRose.java'
-            }
-        }
-    }
+
+    //sourceSets {
+    //    main {
+    //        java {
+    //            exclude '**/CompassRose.java'
+    //        }
+    //    }
+    //}
 
     buildTypes {
         release {

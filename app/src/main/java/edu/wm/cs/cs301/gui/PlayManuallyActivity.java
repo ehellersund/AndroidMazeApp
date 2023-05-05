@@ -17,8 +17,10 @@ public class PlayManuallyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manual);
 
-        //mazePanel = (MazePanel) findViewById(R.id.mazePanel);
+        mazePanel = (MazePanel) findViewById(R.id.mazePanel);
 
+        mazePanel.addFilledRectangle(0, 0, 200, 200);
+        mazePanel.commit();
 
 
     }
