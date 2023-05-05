@@ -20,6 +20,7 @@ import edu.wm.cs.cs301.gui.ColorTheme.MazeColors;
  * @author Peter Kemper
  */
 public class CompassRose {
+	private MazePanel g2;
 
 	private static final long serialVersionUID = 1916497172430988388L;
 	
@@ -102,24 +103,24 @@ public class CompassRose {
      * one in JComponent.
      * @param g The graphics object to draw on, actually must be a Graphics2D object.
      */
-    public void paintComponent(Graphics g) {			//TODO
+    public void paintComponent(MazePanel g) {			//TODO
         
-        final Graphics2D g2 = (Graphics2D) g;
+        g2 = g; //final Graphics2D g2 = (Graphics2D) g;
         /* Original code
         Dimension dimension = this.getSize();
         int width = Math.min(dimension.width, dimension.height);
         int mid = width / 2;
         width = (int) (scaler * width);
         */
-        
+
         // Determine the dimensions for the visualization
         int width = (int) (scaler * size);
         final int armLength = (int) (width * MAIN_LENGTH / 2);
         final int armWidth = (int) (width * MAIN_WIDTH / 2);
         
         // Set rendering hints to adjust quality of rendering  
-        g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        //g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        //g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         
         /*
          * The compass rose is drawn from several components, 
@@ -141,7 +142,7 @@ public class CompassRose {
      * @param length The length of an arm
      * @param width The width of an arm
      */
-	private void drawArms(final Graphics2D g2, final int length, final int width) {
+	private void drawArms(final MazePanel g2, final int length, final int width) {
 		// Each arm of the compass rose is a symbol created
         // with 2 triangles, one filled, the other one not
         // The first point in the triangle is always the center point.
@@ -285,7 +286,7 @@ public class CompassRose {
 		// the same distance away from the center of the compass rose
 		int offset = (int) (width * markerRadius / 2);
 
-		/* version with color highlighting but stable orientation 
+		/* version with color highlighting but stable orientation
 		 * so North is always on top, highlight the current direction.
 		 * Highlighting with MarkerColor
 		 * use gold as color for others 

@@ -15,12 +15,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import edu.wm.cs.cs301.generation.Maze;
 import edu.wm.cs.cs301.generation.MazeFactory;
 import edu.wm.cs.cs301.generation.Order;
+import edu.wm.cs.cs301.generation.SingleRandom;
 
 public class GeneratingActivity extends AppCompatActivity implements Runnable, Order {
     int difficulty;
     String maze;            //builder pre-conversion from previous activity
     Order.Builder builder;  //builder post-conversion from previous activity
     boolean hasRooms;
+    int seed;
 
     RadioGroup driver;
     RadioGroup robot;
@@ -42,6 +44,8 @@ public class GeneratingActivity extends AppCompatActivity implements Runnable, O
 
         driver = findViewById(R.id.driverGroup);
         robot = findViewById(R.id.robotGroup);
+
+        seed = SingleRandom.getRandom().nextIntWithinInterval(0, 1000000);
     }
 
     @Override
@@ -54,6 +58,7 @@ public class GeneratingActivity extends AppCompatActivity implements Runnable, O
         System.out.println(hasRooms);
 
         generate(maze);
+        System.out.println(seed);
     }
 
     private void generate(String preOrder) {
@@ -165,7 +170,7 @@ public class GeneratingActivity extends AppCompatActivity implements Runnable, O
 
     @Override
     public int getSeed() {
-        return 0;
+        return seed;
     }
 
     @Override
@@ -177,6 +182,6 @@ public class GeneratingActivity extends AppCompatActivity implements Runnable, O
 
     @Override
     public void updateProgress(int percentage) {
-
+        //TODO
     }
 }

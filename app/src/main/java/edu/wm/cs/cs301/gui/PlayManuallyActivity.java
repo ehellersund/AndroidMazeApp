@@ -4,8 +4,11 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import edu.wm.cs.cs301.generation.Maze;
+
 public class PlayManuallyActivity extends AppCompatActivity {
     MazePanel mazePanel;
+    Maze maze = MazeObject.getMaze();
 
     int moves = 0;
     int jumps = 0;

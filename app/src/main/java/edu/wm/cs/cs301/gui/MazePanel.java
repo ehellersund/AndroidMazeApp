@@ -17,17 +17,21 @@ public class MazePanel extends View implements P7PanelS23 {
     private Bitmap bitmap;
     private Paint paint;
 
+    public MazePanel(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        init();
+    }
+    /*
     public MazePanel(Context context, AttributeSet attrs) {
         super(context, attrs);
-        //init();
+        init();
         //myTestImage(canvas);
     }
-
-    public MazePanel(Context c) {
-        this(c, null);
-        //init();
-        //myTestImage(canvas);
+    public MazePanel(Context context) {
+        super(context, null);
+        init();
     }
+     */
 
     void myTestImage(Canvas c) {
         paint.setColor(Color.RED);
@@ -40,13 +44,24 @@ public class MazePanel extends View implements P7PanelS23 {
     }
 
     private void init() {
-        paint = new Paint(0);
-        paint.setColor(0xFF000000);
+        //bitmap=Bitmap.createBitmap(400,400, Bitmap.Config.ARGB_8888);
+        paint = new Paint();
+        bitmap=Bitmap.createBitmap(400,400, Bitmap.Config.ARGB_8888);
+        canvas=new Canvas(bitmap);
+        //addBackground(0);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
+        //paint.setColor(Color.RED);
+        //addFilledRectangle(50, 50, 100, 100);
+
+
+        //bitmap=Bitmap.createBitmap(400,400, Bitmap.Config.ARGB_8888);
+        //canvas = new Canvas();
+        //addBackground(0);
 
         paint = new Paint(0);
         paint.setColor(Color.BLUE);
@@ -56,8 +71,7 @@ public class MazePanel extends View implements P7PanelS23 {
         float right = left + 400; // width (distance from X1 to X2)
         float bottom = top + 400; // height (distance from Y1 to Y2)
 
-        RectF Rect = new RectF(left, top, right, bottom);
-        canvas.drawRect(Rect, paint);
+
 
     }
 
@@ -74,22 +88,38 @@ public class MazePanel extends View implements P7PanelS23 {
 
     @Override
     public void setColor(int argb) {
-
+        paint.setColor(argb);
     }
 
     @Override
     public int getColor() {
-        return 0;
+        return paint.getColor();
     }
 
     @Override
     public void addBackground(float percentToExit) {
-
+/*
+		gc.setColor(ColorTheme.getColor(MazeColors.FRAME_OUTSIDE));
+        gc.fillRect(0, 0, Constants.VIEW_WIDTH, Constants.VIEW_HEIGHT);
+        gc.setColor(ColorTheme.getColor(MazeColors.FRAME_MIDDLE));
+        gc.fillRect(10, 10, Constants.VIEW_WIDTH-20, Constants.VIEW_HEIGHT-20);
+        gc.setColor(ColorTheme.getColor(MazeColors.FRAME_INSIDE));
+        gc.fillRect(15, 15, Constants.VIEW_WIDTH-30, Constants.VIEW_HEIGHT-30);
+ */
+        //Top
+        paint.setColor(Color.BLACK);
+        paint.setStyle(Paint.Style.FILL);
+        canvas.drawRect(0, 0, 200, 200, paint);
+        //Bottom
+        paint.setColor(Color.GRAY);
+        canvas.drawRect(0, 200, 200, 200, paint);
     }
 
     @Override
     public void addFilledRectangle(int x, int y, int width, int height) {
-
+        //x, y, x+width, y+height
+        paint.setStyle(Paint.Style.FILL);
+        canvas.drawRect(x,y,x+width,y+width, paint);
     }
 
     @Override
