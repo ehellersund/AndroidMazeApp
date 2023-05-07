@@ -141,12 +141,12 @@ public class MazePanel extends View implements P7PanelS23 {
 
     @Override
     public void addMarker(float x, float y, String str) {
-
+        canvas.drawText(str, x, y, paint);
     }
 
     @Override
     public void setRenderingHint(P7RenderingHints hintKey, P7RenderingHints hintValue) {
-
+        //TODO
     }
     @Override
     protected void onDraw(Canvas canvas) {
