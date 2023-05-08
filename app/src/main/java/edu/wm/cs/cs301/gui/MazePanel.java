@@ -3,16 +3,11 @@ package edu.wm.cs.cs301.gui;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Path;
-import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 import android.graphics.Canvas;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
-
-import java.lang.Integer;
-
-import androidx.annotation.Nullable;
 
 public class MazePanel extends View implements P7PanelS23 {
     private Canvas canvas;

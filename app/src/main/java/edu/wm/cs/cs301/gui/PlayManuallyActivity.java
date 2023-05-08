@@ -57,7 +57,9 @@ public class PlayManuallyActivity extends AppCompatActivity implements View.OnCl
         showSolution.setOnClickListener(this);
         mapScale.setOnClickListener(this);
 
-
+        StatePlaying game = new StatePlaying();
+        game.setMaze(MazeObject.getMaze());
+        game.start(mazePanel);
     }
 
     @Override

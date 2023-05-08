@@ -110,7 +110,7 @@ public class StatePlaying implements State {
     boolean started;  
     
     //Used when changing states to track the driver
-    Driver drive;
+    Driver drive; //= Driver.Manual;
     
     //Used when changing states to track the sensor configuration
     String sensorConf;
@@ -343,7 +343,7 @@ public class StatePlaying implements State {
         // update the context class with the new state
         // and hand over control to the new state
         //control.setState(currentState);
-        currentState.setDriver(drive);
+        //currentState.setDriver(drive);
         currentState.start(panel);
     }
 
@@ -619,7 +619,7 @@ public class StatePlaying implements State {
     	// in testing environments, there is sometimes no panel to draw on
     	// or the panel is unable to deliver a graphics object
     	// check this and quietly move on if drawing is impossible
-    	if ((panel == null || panel.getBufferGraphics() == null)) {
+    	if ((panel == null)) { //((panel == null || panel.getBufferGraphics() == null)) {
     		printWarning();
     		return;
     	}
@@ -632,7 +632,7 @@ public class StatePlaying implements State {
     	else {
     		// draw compass rose
     		cr.setCurrentDirection(cd);
-    		cr.paintComponent(panel.getBufferGraphics());
+    		//cr.paintComponent(panel.getBufferGraphics()); //TODO
     	}
     	panel.commit();
     }

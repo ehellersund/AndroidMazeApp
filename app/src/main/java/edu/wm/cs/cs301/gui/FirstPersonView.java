@@ -3,8 +3,6 @@
  */
 package edu.wm.cs.cs301.gui;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -73,14 +71,14 @@ public class FirstPersonView {
 	private int angle;  
 	
 	/**
-	 * The drawing is performed on a Graphics object. Storing it makes
+	 * The drawing is performed on a **MazePanel** object. Storing it makes
 	 * its access easier for code that traverses the tree of BSP nodes
 	 * to draw walls. Drawing is performed in a piecemeal manner on
 	 * a buffer image, such that updating the panel that is on screen 
 	 * with the current buffer image is the responsibility of
 	 * the StatePlaying class.
 	 */
-	private Graphics2D gc; 
+	private MazePanel gc;
 	
 	/**
 	 * The current position (x,y) scaled by map_unit and 
@@ -159,23 +157,31 @@ public class FirstPersonView {
 	 */
 	public void draw(MazePanel panel, int x, int y, int walkStep, int ang, float percentToExit) {
 		// obtain a Graphics2D object we can draw on
-		Graphics g = panel.getBufferGraphics() ;
+		//Graphics g = panel.getBufferGraphics() ; /TODO
         // viewers draw on the buffer graphics
+		/*											/TODO?
         if (null == g) {
             LOGGER.warning("Can't get graphics object to draw on, mitigate this by skipping draw operation") ;
             return;
         }
         gc = (Graphics2D) g ;
-        
+		 */
+		if (panel == null) {
+			LOGGER.warning("No mazepanel, mitigate this by skipping draw operation") ;
+			return;
+		}
+
+		gc = panel;
+
         // update fields angle, viewx, viewy for current position and viewing angle
         angle = ang ;
         setView(x, y, walkStep);
         
         // update graphics
         // draw background figure: lightGrey to green on bottom half, yellow to gold on top half
-        drawBackground(g, percentToExit);
+        drawBackground(panel, percentToExit);
         // set color to white and draw what ever can be seen from the current position
-        g.setColor(ColorTheme.getColor(MazeColors.FIRSTPERSON_DEFAULT));
+        panel.setColor(ColorTheme.getColor(MazeColors.FIRSTPERSON_DEFAULT).toArgb());
         // reset the set of ranges to a single new element (0,width-1)
         // to cover the full width of the view 
         // as we have not drawn any polygons (walls) yet.
@@ -220,11 +226,11 @@ public class FirstPersonView {
 	 * @param graphics to draw on, must be not null
 	 * @param percentToExit gives the distance to exit
 	 */
-	private void drawBackground(Graphics graphics, float percentToExit) {
-		graphics.setColor(ColorTheme.getColor(MazeColors.BACKGROUND_TOP,percentToExit));
-		graphics.fillRect(0, 0, viewWidth, viewHeight/2);
-		graphics.setColor(ColorTheme.getColor(MazeColors.BACKGROUND_BOTTOM,percentToExit));
-		graphics.fillRect(0, viewHeight/2, viewWidth, viewHeight/2);
+	private void drawBackground(MazePanel graphics, float percentToExit) {
+		graphics.setColor(ColorTheme.getColor(MazeColors.BACKGROUND_TOP,percentToExit).toArgb());
+		graphics.addFilledRectangle(0, 0, viewWidth, viewHeight/2);
+		graphics.setColor(ColorTheme.getColor(MazeColors.BACKGROUND_BOTTOM,percentToExit).toArgb());
+		graphics.addFilledRectangle(0, viewHeight/2, viewWidth, viewHeight/2);
 	}
 
 	/**
@@ -439,7 +445,8 @@ public class FirstPersonView {
 		
 		// moved code for drawing bits and pieces into yet another method to 
 		// gain more clarity on what information is actually needed
-		gc.setColor(ColorTheme.getColor(wall.getColor()));
+		gc.setColor(ColorTheme.getColor(wall.getColor()).toArgb());  //TODO make sure working
+
 		boolean drawn = drawPolygons(x1, x2, y11, y12, y21, y22);
 		
 		if (drawn && !wall.isSeen()) {
@@ -519,7 +526,7 @@ public class FirstPersonView {
 			// debug
 			//dbg("polygon-x: " + xps[0] + ", " + xps[1] + ", " + xps[2] + ", " + xps[3]) ;
 			//dbg("polygon-y: " + yps[0] + ", " + yps[1] + ", " + yps[2] + ", " + yps[3]) ;
-			gc.fillPolygon(xps, yps, 4);
+			gc.addFilledPolygon(xps, yps, 4);
 			// for debugging purposes, code will draw a red line around polygon
 			// this makes individual walls visible
 			/*

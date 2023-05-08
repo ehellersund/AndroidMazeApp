@@ -1,8 +1,8 @@
 package edu.wm.cs.cs301.gui;
 
-import generation.CardinalDirection;
-import generation.Maze;
-import gui.Robot.Direction;
+import edu.wm.cs.cs301.generation.CardinalDirection;
+import edu.wm.cs.cs301.generation.Maze;
+import edu.wm.cs.cs301.gui.Robot.Direction;
 
 /**
  * A DistanceSensor provides information how for it is
