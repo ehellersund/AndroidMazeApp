@@ -169,15 +169,15 @@ public class StatePlaying implements State {
      * If the panel is null, all drawing operations are skipped.
      * This mode of operation is useful for testing purposes, 
      * i.e., a dryrun of the game without the graphics part.
-     * @param controller provides access to the controller this state resides in
+     * //@param controller provides access to the controller this state resides in
      * @param panel is part of the UI and visible on the screen, needed for drawing
      */
-    public void start(Control controller, MazePanel panel) {
+    public void start(MazePanel panel) { //Control controller, MazePanel panel
     	assert null != maze : "StatePlaying.start: maze must exist!";
     	
         started = true;
         // keep the reference to the controller to be able to call method to switch the state
-        control = controller;
+        //control = controller;
         // keep the reference to the panel for drawing
         this.panel = panel;
         //
@@ -201,7 +201,7 @@ public class StatePlaying implements State {
         }
         //Activate robot driver
         if (drive != null); {
-        	if (drive == gui.RobotDriver.Driver.Wizard) {
+        	if (drive == RobotDriver.Driver.Wizard) {
         		Wizard wizard = new Wizard();
         		ReliableRobot bot = new ReliableRobot();
         		
@@ -230,7 +230,7 @@ public class StatePlaying implements State {
 				}
         		System.out.println(bot.getBatteryLevel());
         	}
-        	if (drive == gui.RobotDriver.Driver.WallFollower) {
+        	if (drive == RobotDriver.Driver.WallFollower) {
         		WallFollower wally = new WallFollower();
         		UnreliableRobot bot = new UnreliableRobot();
         		
@@ -342,14 +342,15 @@ public class StatePlaying implements State {
         
         // update the context class with the new state
         // and hand over control to the new state
-        control.setState(currentState);
+        //control.setState(currentState);
         currentState.setDriver(drive);
-        currentState.start(control, panel);
+        currentState.start(panel);
     }
-    
+
     /**
      * Switches the controller to the initial screen.
      */
+    /*
     public void switchToTitle() {
        	// need to instantiate and configure the title state
         StateTitle currentState = new StateTitle();
@@ -362,11 +363,11 @@ public class StatePlaying implements State {
         control.setState(currentState);
         currentState.start(control, panel);
     }
-    
+    */
     /**
      * The method provides an appropriate response to user keyboard input. 
      * The control calls this method to communicate input and delegate its handling.
-     * Method requires {@link #start(Control, MazePanel) start} to be
+     * Method requires {@link #start(MazePanel) start} to be
      * called before.
      * @param userInput provides the feature the user selected
      * @param value is not used in this state, exists only for consistency across State classes
@@ -415,7 +416,8 @@ public class StatePlaying implements State {
             }
             break;
         case RETURNTOTITLE: // escape to title screen
-            switchToTitle();
+            System.out.println("ReturnToTitle case (bad)");
+            //switchToTitle();
             break;
         case JUMP: // make a step forward even through a wall
         	LOGGER.fine("Jump 1 step forward");
@@ -442,7 +444,7 @@ public class StatePlaying implements State {
             showSolution = !showSolution;       
             draw(cd.angle(), 0) ;
             break;
-        case ZOOMIN: // zoom into map
+        case ZOOMIN: // zoom into map TODO
         	mapView.incrementMapScale(); 
             draw(cd.angle(), 0) ;
             break ;
@@ -472,7 +474,7 @@ public class StatePlaying implements State {
 					isInShowMazeMode(),isInShowSolutionMode()) ;
 		}
 		// update the screen with the buffer graphics
-        panel.update() ;
+        panel.commit(); ;
     }
 
     /**
@@ -632,7 +634,7 @@ public class StatePlaying implements State {
     		cr.setCurrentDirection(cd);
     		cr.paintComponent(panel.getBufferGraphics());
     	}
-    	panel.update();
+    	panel.commit();
     }
  
     /////////////////////// Methods for debugging ////////////////////////////////

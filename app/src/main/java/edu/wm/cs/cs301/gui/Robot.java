@@ -1,6 +1,6 @@
 package edu.wm.cs.cs301.gui;
 
-import generation.CardinalDirection;
+import edu.wm.cs.cs301.generation.CardinalDirection;
 
 
 /**
@@ -79,6 +79,8 @@ public interface Robot {
 	 * or if controller is not in playing state, 
 	 * or if controller does not have a maze
 	 */
+
+	//TODO: replace control
 	void setController(Control controller);	
 	/**
 	 * Adds a distance sensor to the robot such that it measures in the given direction.
