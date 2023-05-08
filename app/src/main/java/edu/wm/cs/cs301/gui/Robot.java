@@ -81,7 +81,7 @@ public interface Robot {
 	 */
 
 	//TODO: replace control
-	void setController(Control controller);	
+	void setController(StatePlaying controller);
 	/**
 	 * Adds a distance sensor to the robot such that it measures in the given direction.
 	 * This method is used when a robot is initially configured to get ready for operation.

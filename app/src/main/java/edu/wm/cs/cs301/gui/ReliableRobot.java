@@ -31,7 +31,7 @@ import edu.wm.cs.cs301.generation.Maze;
 
 public class ReliableRobot implements Robot {
 
-	Control RobotController = null;
+	StatePlaying RobotController = null;
 	float[] Battery = {3500};
 	int Odometer = 0;
 	boolean stopped = false;
@@ -41,9 +41,9 @@ public class ReliableRobot implements Robot {
 	DistanceSensor BackSensor = null;
 
 	@Override
-	public void setController(Control controller) throws IllegalArgumentException {
-		if (controller == null || !(controller.currentState instanceof StatePlaying) || controller.getMaze() == null) {
-			throw new IllegalArgumentException("Unable to set controller, it might be null, wrong playstate, or maze does not exist");
+	public void setController(StatePlaying controller) throws IllegalArgumentException {
+		if (controller == null || controller.getMaze() == null) {
+			throw new IllegalArgumentException("Unable to set controller, it might be null, or maze does not exist, or some failure in porting");
 			}
 		else {
 			RobotController = controller;

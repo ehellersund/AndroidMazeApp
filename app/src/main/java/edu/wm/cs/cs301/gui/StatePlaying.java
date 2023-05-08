@@ -75,7 +75,8 @@ public class StatePlaying implements State {
      * plus switch control to the next state, which 
      * is the maze generating state.
      */
-    private Control control;
+    //private Control control;
+    private StatePlaying control = this;
 
 
     /**
@@ -108,9 +109,10 @@ public class StatePlaying implements State {
      * initial setting: false, start sets it to true.
      */
     boolean started;  
-    
-    //Used when changing states to track the driver
-    Driver drive; //= Driver.Manual;
+
+    Robot robot = null; //Default case null
+    Driver drive; // Enum value for tracking driver, originally used when changing states to track the driver
+    RobotDriver driver; //actual robot's driver
     
     //Used when changing states to track the sensor configuration
     String sensorConf;
@@ -127,7 +129,7 @@ public class StatePlaying implements State {
     	firstPersonView = null; // initialized in start method
     	mapView = null; // initialized in start method
     	panel = null; // provided by start method
-    	control = null; // provided by start method
+    	//control = null; // provided by start method
     	started = false; // method start has not been called yet
     	
     	drive = null; // By default, no driver is selected
@@ -329,14 +331,14 @@ public class StatePlaying implements State {
      * Switches the controller to the final screen
      * @param pathLength gives the length of the path
      */
-    public void switchFromPlayingToWinning(int pathLength) {
+    public void switchFromPlayingToWinning(int pathLength) { //TODO: deal with this
     	// need to instantiate and configure the winning state
-        StateWinning currentState = new StateWinning();
+        //StateWinning currentState = new StateWinning();
         
         // The playing state needs 
         // 1) the path length
         // 
-        currentState.setPathLength(pathLength);
+        //currentState.setPathLength(pathLength);
         
         LOGGER.fine("Control switches from playing to winning screen, game completed.");
         
@@ -344,7 +346,7 @@ public class StatePlaying implements State {
         // and hand over control to the new state
         //control.setState(currentState);
         //currentState.setDriver(drive);
-        currentState.start(panel);
+        //currentState.start(panel);
     }
 
     /**
@@ -495,13 +497,13 @@ public class StatePlaying implements State {
     }
  
     ////////////////////////////// get methods ///////////////////////////////////////////////////////////////
-    protected int[] getCurrentPosition() {
+    public int[] getCurrentPosition() {
         int[] result = new int[2];
         result[0] = px;
         result[1] = py;
         return result;
     }
-    protected CardinalDirection getCurrentDirection() {
+    public CardinalDirection getCurrentDirection() {
         return cd;
     }
     boolean isInMapMode() { 
@@ -654,6 +656,38 @@ public class StatePlaying implements State {
                 viewx+") y="+viewy/Constants.MAP_UNIT+" ("+viewy+") ang="+
                 angle+" dx="+dx+" dy="+dy+" "+viewdx+" "+viewdy);
                 */
+    }
+
+    /////////////////////// Robot Methods ////////////////////////
+
+    public void setRobotAndDriver(Robot robot, RobotDriver robotdriver) {
+        this.robot = robot;
+        driver = robotdriver;
+    }
+
+    public void robotMove() {
+        UserInput userInput = UserInput.UP;
+        handleUserInput(userInput, 0);
+    }
+
+    public void robotTurn(Robot.Turn direction) {
+        UserInput left = UserInput.LEFT;
+        UserInput right = UserInput.RIGHT;
+        switch (direction) {
+            case LEFT:
+                handleUserInput(left, 0);
+                break;
+            case RIGHT:
+                handleUserInput(right, 0);
+                break;
+            case AROUND:
+                throw new UnsupportedOperationException("Invalid turn passed to robot");
+        }
+    }
+
+    public void robotJump() {
+        UserInput userInput = UserInput.JUMP;
+        handleUserInput(userInput, 0);
     }
 
 }

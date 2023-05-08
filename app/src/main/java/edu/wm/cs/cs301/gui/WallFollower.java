@@ -1,8 +1,8 @@
 package edu.wm.cs.cs301.gui;
 
-import generation.Maze;
-import gui.Robot.Direction;
-import gui.Robot.Turn;
+import edu.wm.cs.cs301.generation.Maze;
+import edu.wm.cs.cs301.gui.Robot.Direction;
+import edu.wm.cs.cs301.gui.Robot.Turn;
 
 /*Class: 
  * 	WallFollower
