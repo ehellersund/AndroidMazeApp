@@ -29,6 +29,8 @@ public class PlayManuallyActivity extends AppCompatActivity implements View.OnCl
     int moves = 0;
     int jumps = 0;
 
+    StatePlaying game;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +59,7 @@ public class PlayManuallyActivity extends AppCompatActivity implements View.OnCl
         showSolution.setOnClickListener(this);
         mapScale.setOnClickListener(this);
 
-        StatePlaying game = new StatePlaying();
+        game = new StatePlaying();
         game.setMaze(MazeObject.getMaze());
         game.start(mazePanel);
     }
@@ -67,30 +69,31 @@ public class PlayManuallyActivity extends AppCompatActivity implements View.OnCl
         switch(view.getId()) {
             case R.id.FORWARD:
                 moves += 1;
-                System.out.println("forward");
+                game.handleUserInput(Constants.UserInput.UP, 0);
                 break;
             case R.id.LEFT:
-                System.out.println("left");
+                game.handleUserInput(Constants.UserInput.LEFT, 0);
                 break;
             case R.id.RIGHT:
-                System.out.println("right");
+                game.handleUserInput(Constants.UserInput.RIGHT, 0);
                 break;
             case R.id.JUMP:
                 jumps += 1;
-                System.out.println("jump");
+                game.handleUserInput(Constants.UserInput.JUMP, 0);
                 break;
             case R.id.mapshow:
-                System.out.println("show map");
+                game.handleUserInput(Constants.UserInput.TOGGLEFULLMAP, 0);
                 break;
             case R.id.wallshow:
-                System.out.println("show walls");
+                game.handleUserInput(Constants.UserInput.TOGGLELOCALMAP, 0);
                 break;
             case R.id.solutionshow:
-                System.out.println("show solution");
+                game.handleUserInput(Constants.UserInput.TOGGLESOLUTION, 0);
                 break;
             case R.id.seekBar:
-                System.out.println("map scale");
+                System.out.println("map scale (bad imp)");
                 break;
+            //TODO: Back, seekbar
             default:
                 System.out.println("Default case triggered on ID: " + view.getId()) ;
                 break;
