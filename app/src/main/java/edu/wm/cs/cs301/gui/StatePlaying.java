@@ -606,7 +606,7 @@ public class StatePlaying implements State {
      * @param y coordinate of position
      * @return true if position is outside, false otherwise
      */
-    private boolean isOutside(int x, int y) {
+    protected boolean isOutside(int x, int y) {
         return !maze.isValidPosition(x, y) ;
     }
     /**

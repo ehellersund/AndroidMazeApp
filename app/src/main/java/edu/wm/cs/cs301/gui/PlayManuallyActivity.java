@@ -1,5 +1,6 @@
 package edu.wm.cs.cs301.gui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -70,6 +71,10 @@ public class PlayManuallyActivity extends AppCompatActivity implements View.OnCl
             case R.id.FORWARD:
                 moves += 1;
                 game.handleUserInput(Constants.UserInput.UP, 0);
+                if (game.isOutside(game.px, game.py)) {
+                    Intent win = new Intent(this, WinningActivity.class);
+                    startActivity(win);
+                }
                 break;
             case R.id.LEFT:
                 game.handleUserInput(Constants.UserInput.LEFT, 0);
@@ -80,6 +85,10 @@ public class PlayManuallyActivity extends AppCompatActivity implements View.OnCl
             case R.id.JUMP:
                 jumps += 1;
                 game.handleUserInput(Constants.UserInput.JUMP, 0);
+                if (game.isOutside(game.px, game.py)) {
+                    Intent win = new Intent(this, WinningActivity.class);
+                    startActivity(win);
+                }
                 break;
             case R.id.mapshow:
                 game.handleUserInput(Constants.UserInput.TOGGLEFULLMAP, 0);

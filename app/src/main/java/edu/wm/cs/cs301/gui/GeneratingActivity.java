@@ -17,7 +17,7 @@ import edu.wm.cs.cs301.generation.MazeFactory;
 import edu.wm.cs.cs301.generation.Order;
 import edu.wm.cs.cs301.generation.SingleRandom;
 
-public class GeneratingActivity extends AppCompatActivity implements Runnable, Order {
+public class GeneratingActivity extends AppCompatActivity implements Order { //Runnable
     int difficulty;
     String maze;            //builder pre-conversion from previous activity
     Order.Builder builder;  //builder post-conversion from previous activity
@@ -32,6 +32,8 @@ public class GeneratingActivity extends AppCompatActivity implements Runnable, O
     boolean selectedDriver = false; //Signifies user has selected a driver
     boolean selectedRobot = false; //Signifies user has selected a robot
 
+    ProgressBar bar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +47,8 @@ public class GeneratingActivity extends AppCompatActivity implements Runnable, O
         driver = findViewById(R.id.driverGroup);
         robot = findViewById(R.id.robotGroup);
 
+        bar = findViewById(R.id.progressBar); //progress bar
+
         seed = SingleRandom.getRandom().nextIntWithinInterval(0, 1000000);
     }
 
@@ -52,7 +56,7 @@ public class GeneratingActivity extends AppCompatActivity implements Runnable, O
     protected void onStart() {
         super.onStart();
 
-        progressBar();
+        //progressBar();
         System.out.println(difficulty);
         System.out.println(maze);
         System.out.println(hasRooms);
@@ -104,11 +108,13 @@ public class GeneratingActivity extends AppCompatActivity implements Runnable, O
         }
     }
 
+    /*
     //Begins running the thread for the progressbar to run
     private void progressBar() {
         Thread barThread = new Thread(this);
         barThread.start();
     }
+     */
 
     //Switches to manual or animation activity
     private void switchToPlaying() {
@@ -133,6 +139,7 @@ public class GeneratingActivity extends AppCompatActivity implements Runnable, O
         }
     }
 
+    /*
     //Separated the progress bar into a thread so it doesn't slow everything else down
     @Override
     public void run() {
@@ -151,7 +158,9 @@ public class GeneratingActivity extends AppCompatActivity implements Runnable, O
 
         loaded = true;
         switchToPlaying();
+
     }
+     */
 
     @Override
     public int getSkillLevel() {
@@ -176,12 +185,15 @@ public class GeneratingActivity extends AppCompatActivity implements Runnable, O
     @Override
     public void deliver(Maze mazeConfig) {
         MazeObject.setMaze(mazeConfig);
-        //System.out.println(MazeObject.getMaze().getClass().getName()); //Checking to make sure it worked right
-        System.out.println("Delivered maze");
+        //System.out.println("Delivered maze");
     }
 
     @Override
     public void updateProgress(int percentage) {
-        //TODO
+        bar.setProgress(percentage);
+        if (percentage>=100) {
+            loaded = true;
+            switchToPlaying();
+        }
     }
 }
