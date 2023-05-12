@@ -329,7 +329,6 @@ public class CompassRose {
 	 * @param str The string to draw
 	 */
     private void drawMarker(MazePanel g2, float x, float y, String str) {
-		//TODO: make sure this works well
 		g2.addMarker(x, y, str);
         /*
 		GlyphVector gv = markerFont.createGlyphVector(g2.getFontRenderContext(), str);

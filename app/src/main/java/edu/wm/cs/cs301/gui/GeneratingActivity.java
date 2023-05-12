@@ -7,9 +7,11 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 import edu.wm.cs.cs301.generation.Maze;
@@ -17,7 +19,7 @@ import edu.wm.cs.cs301.generation.MazeFactory;
 import edu.wm.cs.cs301.generation.Order;
 import edu.wm.cs.cs301.generation.SingleRandom;
 
-public class GeneratingActivity extends AppCompatActivity implements Order { //Runnable
+public class GeneratingActivity extends AppCompatActivity implements Order, Runnable {
     int difficulty;
     String maze;            //builder pre-conversion from previous activity
     Order.Builder builder;  //builder post-conversion from previous activity
@@ -50,6 +52,7 @@ public class GeneratingActivity extends AppCompatActivity implements Order { //R
         bar = findViewById(R.id.progressBar); //progress bar
 
         seed = SingleRandom.getRandom().nextIntWithinInterval(0, 1000000);
+
     }
 
     @Override
@@ -57,12 +60,8 @@ public class GeneratingActivity extends AppCompatActivity implements Order { //R
         super.onStart();
 
         //progressBar();
-        System.out.println(difficulty);
-        System.out.println(maze);
-        System.out.println(hasRooms);
 
         generate(maze);
-        System.out.println(seed);
     }
 
     private void generate(String preOrder) {
@@ -141,28 +140,18 @@ public class GeneratingActivity extends AppCompatActivity implements Order { //R
         }
     }
 
-    /*
-    //Separated the progress bar into a thread so it doesn't slow everything else down
+
+    //Countdown
     @Override
     public void run() {
-        ProgressBar bar = findViewById(R.id.progressBar);
-        int barProgress = 0;
-
-        while (barProgress <= 100) {
-            bar.setProgress(barProgress);
-            barProgress += 1;
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        loaded = true;
-        switchToPlaying();
-
+        TextView countdown = findViewById(R.id.countdown);
+        countdown.setVisibility(View.VISIBLE);
+        try {Thread.sleep(1000);} catch (InterruptedException e) {}
+        countdown.setText("2");
+        try {Thread.sleep(1000);} catch (InterruptedException e) {}
+        countdown.setText("1");
+        try {Thread.sleep(1000);} catch (InterruptedException e) {}
     }
-     */
 
     @Override
     public int getSkillLevel() {

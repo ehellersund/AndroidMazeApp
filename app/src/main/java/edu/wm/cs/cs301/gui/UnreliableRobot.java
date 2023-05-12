@@ -51,11 +51,13 @@ public class UnreliableRobot extends ReliableRobot {
 				stopped = true;
 				stepsLeft = 0;
 				loser();
+				break;
 				}
 			else {
 				Battery[0] -= 6;
 				if (hasStopped() == true) {
 					loser();
+					break;
 				}
 				RobotController.robotMove();
 				Odometer += 1;

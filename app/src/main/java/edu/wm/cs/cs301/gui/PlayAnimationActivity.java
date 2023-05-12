@@ -119,4 +119,9 @@ public class PlayAnimationActivity extends AppCompatActivity implements View.OnC
         Intent win = new Intent(winContext, WinningActivity.class);
         winContext.startActivity(win);
     }
+    
+    public static void lose() {
+        Intent lose = new Intent(winContext, LosingActivity.class);
+        winContext.startActivity(lose);
+    }
 }

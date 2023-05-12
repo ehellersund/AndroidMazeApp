@@ -43,7 +43,9 @@ public class UnreliableSensor extends ReliableSensor implements Runnable {
 		}
 		
 		if (powersupply[0] - 6 <= 0) { //Not enough power
-			throw new Exception("Not enough power for operation");
+			PlayAnimationActivity.lose();
+			return -1;
+			//throw new Exception("Not enough power for operation");
 		}
 		
 		while (true) {

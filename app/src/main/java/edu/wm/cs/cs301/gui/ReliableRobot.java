@@ -117,6 +117,7 @@ public class ReliableRobot implements Robot {
 			Battery[0] -= 3;
 			if (hasStopped() == true) {
 				loser();
+				break;
 			}
 			else {
 				RobotController.robotTurn(Turn.LEFT);
@@ -126,6 +127,7 @@ public class ReliableRobot implements Robot {
 			Battery[0] -= 3;
 			if (hasStopped() == true) {
 				loser();
+				break;
 			}
 			else {
 				RobotController.robotTurn(Turn.RIGHT);
@@ -135,6 +137,7 @@ public class ReliableRobot implements Robot {
 			Battery[0] -= 3;
 			if (hasStopped() == true) {
 				loser();
+				break;
 			}
 			else {
 				RobotController.robotTurn(Turn.RIGHT);
@@ -142,6 +145,7 @@ public class ReliableRobot implements Robot {
 				if (hasStopped() == true) {
 					System.out.println("Could only rotate 90 degrees");
 					loser();
+					break;
 				}
 				else {
 					RobotController.robotTurn(Turn.RIGHT);
@@ -162,11 +166,13 @@ public class ReliableRobot implements Robot {
 				stopped = true;
 				stepsLeft = 0;
 				loser();
+				break;
 				}
 			else {
 				Battery[0] -= 6;
 				if (hasStopped() == true) {
 					loser();
+					break;
 				}
 				RobotController.robotMove();
 				Odometer += 1;
@@ -295,9 +301,12 @@ public class ReliableRobot implements Robot {
 	public Maze giveMaze() {
 		return RobotController.getMaze();
 	}
-	
-	//Method that will be called to implement game loss
+
 	public void loser() {
-		System.out.println("Game lost"); 
+		PlayAnimationActivity.lose();
+		try {
+			Thread.sleep(200);
+		} catch (InterruptedException e) {
+		}
 	}
 }
