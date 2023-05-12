@@ -35,7 +35,7 @@ public class MazePanel extends View implements P7PanelS23 {
 
     private void init() {
         paint = new Paint();
-        bitmap = Bitmap.createBitmap(400,400, Bitmap.Config.ARGB_8888);
+        bitmap = Bitmap.createBitmap(900,900, Bitmap.Config.ARGB_8888);
         canvas = new Canvas(bitmap);
 
         //addBackground(0);

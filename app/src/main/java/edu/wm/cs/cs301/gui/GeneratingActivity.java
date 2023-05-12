@@ -88,6 +88,7 @@ public class GeneratingActivity extends AppCompatActivity implements Order { //R
         driverButton = findViewById(id);
 
         Toast.makeText(this, "Selected " + driverButton.getText(), Toast.LENGTH_SHORT).show();
+        MazeObject.setDriver((String) driverButton.getText());
         selectedDriver = true;
 
         if (loaded == true) {
@@ -101,6 +102,7 @@ public class GeneratingActivity extends AppCompatActivity implements Order { //R
         robotButton = findViewById(id2);
 
         Toast.makeText(this, "Selected " + robotButton.getText() + " quality", Toast.LENGTH_SHORT).show();
+        MazeObject.setQuality((String) robotButton.getText());
         selectedRobot = true;
 
         if (loaded == true) {

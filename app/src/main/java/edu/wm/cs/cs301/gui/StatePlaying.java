@@ -1,5 +1,7 @@
 package edu.wm.cs.cs301.gui;
 
+import android.content.Intent;
+
 import edu.wm.cs.cs301.gui.Constants.UserInput;
 
 import java.util.logging.Logger;
@@ -34,7 +36,7 @@ import edu.wm.cs.cs301.gui.RobotDriver.Driver;
  * Paul Falstad granted permission to modify and use code for teaching purposes.
  * Refactored by Peter Kemper
  */
-public class StatePlaying implements State {
+public class StatePlaying implements State, Runnable {
 	/**
 	 * The logger is used to track execution and report issues.
 	 * Collaborators are the UI and the MazeFactory.
@@ -201,99 +203,6 @@ public class StatePlaying implements State {
         	// else: dry-run without graphics, most likely for testing purposes
         	printWarning();
         }
-        //Activate robot driver
-        if (drive != null); {
-        	if (drive == RobotDriver.Driver.Wizard) {
-        		Wizard wizard = new Wizard();
-        		ReliableRobot bot = new ReliableRobot();
-        		
-        		bot.setController(control);
-        		wizard.setMaze(maze);
-        		wizard.setRobot(bot);
-        		
-        		System.out.println("Robot initialized");
-        		
-                /*
-        		mapMode = !mapMode;         
-                draw(cd.angle(), 0) ; 
-                showMaze = !showMaze;       
-                draw(cd.angle(), 0) ; 
-                showSolution = !showSolution;       
-                draw(cd.angle(), 0) ;
-                */
-
-        		try {
-        			//System.out.println(sensorConf);
-        			wizard.drive2Exit();
-        			pathlength = wizard.getPathLength();
-				} catch (Exception a) {
-					System.out.println("Wizard Drive2Exit Failed Somehow");
-					a.printStackTrace();
-				}
-        		System.out.println(bot.getBatteryLevel());
-        	}
-        	if (drive == RobotDriver.Driver.WallFollower) {
-        		WallFollower wally = new WallFollower();
-        		UnreliableRobot bot = new UnreliableRobot();
-        		
-        		bot.setController(control);
-        		
-        		//Attempt to configure robot's sensors
-        		try {
-					wally.receiveConfig(sensorConf); } 
-        		catch (Exception b) {
-					System.out.println("Attempted to set robot's sensors to invalid configurations"); }
-				
-        		//Finish setting up robot
-				wally.setMaze(maze);
-				wally.setRobot(bot);
-				System.out.println("Robot initialized");
-				
-				///*
-				//I wanted to make this run in a thread so you would not have to wait
-				//to start all these processes, but accessing bot is a problem
-				//Begins failure + repair process
-				for (int i = 0; i < sensorConf.length(); i++) {
-					if (Character.getNumericValue(sensorConf.charAt(i)) == 0) {
-						switch(i) {
-						case 0:
-							System.out.println("Beginning failure & repair process for Front");
-							bot.FrontSensor.startFailureAndRepairProcess(4, 2);
-							break;
-						case 1:
-							System.out.println("Beginning failure & repair process for Left");
-							bot.LeftSensor.startFailureAndRepairProcess(4, 2);
-							break;
-						case 2:
-							System.out.println("Beginning failure & repair process for Right");
-							bot.RightSensor.startFailureAndRepairProcess(4, 2);
-							break;
-						case 3:
-							System.out.println("Beginning failure & repair process for Back");
-							bot.BackSensor.startFailureAndRepairProcess(4, 2);
-							break;
-						}
-						try {
-							Thread.sleep(1300);
-						} catch (InterruptedException e) {
-							System.out.println("Thread issue when starting failure & repair");
-							e.printStackTrace();
-						}
-					}
-				}
-				//*/
-				
-				//Attempt to drive to exit
-				try {	
-					wally.drive2Exit(); 
-					pathlength = wally.getPathLength();
-					} 
-				catch (Exception c) {
-					c.printStackTrace();
-					System.out.println("WallFollower Drive2Exit Failed Somehow"); }
-        		System.out.println(bot.getBatteryLevel());
-        	}
-    	}
     }
     
     /**
@@ -690,6 +599,115 @@ public class StatePlaying implements State {
         handleUserInput(userInput, 0);
     }
 
+    public void robotGo() {
+        Thread robotThread = new Thread(this);
+        robotThread.start();
+    }
+
+    @Override
+    public void run() {
+        //Activate robot driver
+        if (drive != null); {
+            if (drive == RobotDriver.Driver.Wizard) {
+                Wizard wizard = new Wizard();
+                ReliableRobot bot = new ReliableRobot();
+
+                bot.setController(control);
+                wizard.setMaze(maze);
+                wizard.setRobot(bot);
+
+                System.out.println("Robot initialized");
+
+                /*
+        		mapMode = !mapMode;
+                draw(cd.angle(), 0) ;
+                showMaze = !showMaze;
+                draw(cd.angle(), 0) ;
+                showSolution = !showSolution;
+                draw(cd.angle(), 0) ;
+                */
+
+                try {
+                    //System.out.println(sensorConf);
+                    wizard.drive2Exit();
+                    pathlength = wizard.getPathLength();
+                } catch (Exception a) {
+                    System.out.println("Wizard Drive2Exit Failed Somehow");
+                    a.printStackTrace();
+                }
+
+                try { Thread.sleep(100); }
+                catch (InterruptedException c) { }
+                handleUserInput(UserInput.UP, 0);
+
+                MazeObject.setBattery(bot.getBatteryLevel());
+                MazeObject.setDistance(wizard.getPathLength());
+
+                PlayAnimationActivity.win();
+            }
+            if (drive == RobotDriver.Driver.WallFollower) {
+                WallFollower wally = new WallFollower();
+                UnreliableRobot bot = new UnreliableRobot();
+
+                bot.setController(control);
+
+                //Attempt to configure robot's sensors
+                try {
+                    wally.receiveConfig(sensorConf); }
+                catch (Exception b) {
+                    System.out.println("Attempted to set robot's sensors to invalid configurations"); }
+
+                //Finish setting up robot
+                wally.setMaze(maze);
+                wally.setRobot(bot);
+                System.out.println("Robot initialized");
+
+                ///*
+                //I wanted to make this run in a thread so you would not have to wait
+                //to start all these processes, but accessing bot is a problem
+                //Begins failure + repair process
+                for (int i = 0; i < sensorConf.length(); i++) {
+                    if (Character.getNumericValue(sensorConf.charAt(i)) == 0) {
+                        switch(i) {
+                            case 0:
+                                System.out.println("Beginning failure & repair process for Front");
+                                bot.FrontSensor.startFailureAndRepairProcess(4, 2);
+                                break;
+                            case 1:
+                                System.out.println("Beginning failure & repair process for Left");
+                                bot.LeftSensor.startFailureAndRepairProcess(4, 2);
+                                break;
+                            case 2:
+                                System.out.println("Beginning failure & repair process for Right");
+                                bot.RightSensor.startFailureAndRepairProcess(4, 2);
+                                break;
+                            case 3:
+                                System.out.println("Beginning failure & repair process for Back");
+                                bot.BackSensor.startFailureAndRepairProcess(4, 2);
+                                break;
+                        }
+                        try {
+                            Thread.sleep(1300);
+                        } catch (InterruptedException e) {
+                            System.out.println("Thread issue when starting failure & repair");
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                //*/
+
+                //Attempt to drive to exit
+                try {
+                    wally.drive2Exit();
+                    pathlength = wally.getPathLength();
+                }
+                catch (Exception c) {
+                    c.printStackTrace();
+                    System.out.println("WallFollower Drive2Exit Failed Somehow"); }
+                System.out.println(bot.getBatteryLevel());
+            }
+        }
+    }
 }
 
 

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
-import android.widget.Switch;
 import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +16,7 @@ public class PlayManuallyActivity extends AppCompatActivity implements View.OnCl
     Maze maze = MazeObject.getMaze();
 
     Button forward;
+    Button backward;
     Button left;
     Button right;
 
@@ -41,6 +41,7 @@ public class PlayManuallyActivity extends AppCompatActivity implements View.OnCl
         mazePanel = (MazePanel) findViewById(R.id.mazePanel);
 
         forward = (Button) findViewById(R.id.FORWARD);
+        backward = (Button) findViewById(R.id.BACKWARD);
         left = (Button) findViewById(R.id.LEFT);
         right = (Button) findViewById(R.id.RIGHT);
         jump = (Button) findViewById(R.id.JUMP);
@@ -51,6 +52,7 @@ public class PlayManuallyActivity extends AppCompatActivity implements View.OnCl
         mapScale = (SeekBar) findViewById(R.id.seekBar);
 
         forward.setOnClickListener(this);
+        backward.setOnClickListener(this);
         left.setOnClickListener(this);
         right.setOnClickListener(this);
         jump.setOnClickListener(this);
@@ -71,6 +73,14 @@ public class PlayManuallyActivity extends AppCompatActivity implements View.OnCl
             case R.id.FORWARD:
                 moves += 1;
                 game.handleUserInput(Constants.UserInput.UP, 0);
+                if (game.isOutside(game.px, game.py)) {
+                    Intent win = new Intent(this, WinningActivity.class);
+                    startActivity(win);
+                }
+                break;
+            case R.id.BACKWARD:
+                moves += 1;
+                game.handleUserInput(Constants.UserInput.DOWN, 0);
                 if (game.isOutside(game.px, game.py)) {
                     Intent win = new Intent(this, WinningActivity.class);
                     startActivity(win);
@@ -102,7 +112,7 @@ public class PlayManuallyActivity extends AppCompatActivity implements View.OnCl
             case R.id.seekBar:
                 System.out.println("map scale (bad imp)");
                 break;
-            //TODO: Back, seekbar
+            //TODO: seekbar
             default:
                 System.out.println("Default case triggered on ID: " + view.getId()) ;
                 break;

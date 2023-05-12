@@ -79,7 +79,7 @@
         android:layout_marginBottom="20dp"
         android:rotation="-90"
         android:text="➤"
-        app:layout_constraintBottom_toTopOf="@+id/JUMP"
+        app:layout_constraintBottom_toTopOf="@+id/BACKWARD"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -105,20 +105,34 @@
         app:layout_constraintStart_toEndOf="@+id/FORWARD" />
 
     <Button
-        android:id="@+id/JUMP"
+        android:id="@+id/BACKWARD"
         android:layout_width="70dp"
         android:layout_height="75dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
         android:layout_marginBottom="20dp"
-        android:text="JUMP"
+        android:rotation="90"
+        android:text="➤"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/RIGHT"
         app:layout_constraintStart_toEndOf="@+id/LEFT" />
 
+    <Button
+        android:id="@+id/JUMP"
+        android:layout_width="70dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="20dp"
+        android:text="JUMP!"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toTopOf="@+id/RIGHT"
+        app:layout_constraintStart_toEndOf="@+id/FORWARD" />
+
     <edu.wm.cs.cs301.gui.MazePanel
         android:id="@+id/mazePanel"
-        android:layout_width="400dp"
-        android:layout_height="400dp"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
         android:layout_marginBottom="80dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
