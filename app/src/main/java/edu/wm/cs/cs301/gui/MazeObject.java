@@ -8,7 +8,7 @@ public class MazeObject {
     public static Maze getMaze() { return maze; }
     public static void setMaze(Maze input) { maze = input; }
     //-----
-    private static String driver;
+    private static String driver = null;
     public static String getDriver() { return driver; }
     public static void setDriver(String inDriver) { driver = inDriver; }
     //-----
@@ -23,4 +23,7 @@ public class MazeObject {
     private static int distance;
     public static int getDistance() { return distance; }
     public static void setDistance(int inDis) { distance = inDis; }
+    //-----
+    public static boolean botOn = true;
+    public static void roboToggle() { botOn = !botOn; }
 }

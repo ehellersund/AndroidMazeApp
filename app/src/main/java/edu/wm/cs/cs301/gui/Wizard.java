@@ -2,6 +2,7 @@ package edu.wm.cs.cs301.gui;
 
 import edu.wm.cs.cs301.generation.CardinalDirection;
 import edu.wm.cs.cs301.generation.Maze;
+import edu.wm.cs.cs301.generation.MazeContainer;
 import edu.wm.cs.cs301.gui.Robot.Direction;
 import edu.wm.cs.cs301.gui.Robot.Turn;
 
@@ -61,8 +62,13 @@ public class Wizard implements RobotDriver {
 		int distance = cheatMaze.getDistanceToExit(robot.getCurrentPosition()[0], robot.getCurrentPosition()[1]);
 		
 		while (distance > 0) {
+			if (MazeObject.botOn == false) {
+				Thread.sleep(100);
+			}
+			else {
 			this.drive1Step2Exit();
 			distance -= 1; }
+		}
 
 		//Stops right before the exit for debugging
 		//robot.move(1);

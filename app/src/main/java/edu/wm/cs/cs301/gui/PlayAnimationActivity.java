@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.ToggleButton;
 
@@ -22,6 +23,7 @@ public class PlayAnimationActivity extends AppCompatActivity implements View.OnC
     ToggleButton showMap;
     ToggleButton showWalls;
     ToggleButton showSolution;
+    Button toggle;
     SeekBar mapScale;
     StatePlaying game;
 
@@ -37,11 +39,13 @@ public class PlayAnimationActivity extends AppCompatActivity implements View.OnC
         showWalls = (ToggleButton) findViewById(R.id.animwallshow);
         showSolution = (ToggleButton) findViewById(R.id.animsolutionshow);
         mapScale = (SeekBar) findViewById(R.id.animseekBar);
+        toggle = (Button) findViewById(R.id.TOGGLE);
 
         showMap.setOnClickListener(this);
         showWalls.setOnClickListener(this);
         showSolution.setOnClickListener(this);
         mapScale.setOnClickListener(this);
+        toggle.setOnClickListener(this);
 
         winContext = this;
 
@@ -101,6 +105,9 @@ public class PlayAnimationActivity extends AppCompatActivity implements View.OnC
                 break;
             case R.id.seekBar:
                 System.out.println("map scale (bad imp)");
+                break;
+            case R.id.TOGGLE:
+                MazeObject.roboToggle();
                 break;
             //TODO: seekbar
             default:

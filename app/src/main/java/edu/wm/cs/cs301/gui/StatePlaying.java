@@ -301,13 +301,14 @@ public class StatePlaying implements State, Runnable {
         case UP: // move forward
         	LOGGER.fine("Move 1 step forward");
             walk(1);
+            pathlength += 1;
             // Temp code used to check position & direction
             //System.out.println(getCurrentDirection());
             //System.out.println("[" + getCurrentPosition()[0] + ", " + getCurrentPosition()[1] + "]");
             
             // check termination, did we leave the maze?
             if (isOutside(px,py)) {
-                switchFromPlayingToWinning(pathlength);
+                MazeObject.setDistance(pathlength);
             }
             break;
         case LEFT: // turn left
@@ -337,6 +338,10 @@ public class StatePlaying implements State, Runnable {
         	if (maze.isValidPosition(px + tmpDxDy[0], py + tmpDxDy[1])) {
                 setCurrentPosition(px + tmpDxDy[0], py + tmpDxDy[1]) ;
                 draw(cd.angle(), 0) ;
+            }
+            pathlength += 1;
+            if (isOutside(px,py)) {
+                MazeObject.setDistance(pathlength);
             }
             break;
         case TOGGLELOCALMAP: // show local information: current position and visible walls
@@ -630,7 +635,6 @@ public class StatePlaying implements State, Runnable {
                 try {
                     //System.out.println(sensorConf);
                     wizard.drive2Exit();
-                    pathlength = wizard.getPathLength();
                 } catch (Exception a) {
                     System.out.println("Wizard Drive2Exit Failed Somehow");
                     a.printStackTrace();
@@ -638,12 +642,18 @@ public class StatePlaying implements State, Runnable {
 
                 try { Thread.sleep(100); }
                 catch (InterruptedException c) { }
-                handleUserInput(UserInput.UP, 0);
 
-                MazeObject.setBattery(bot.getBatteryLevel());
-                MazeObject.setDistance(wizard.getPathLength());
 
-                PlayAnimationActivity.win();
+                if (maze.getDistanceToExit(px, py) == 1) {
+                    handleUserInput(UserInput.UP, 0);
+
+                    MazeObject.setBattery(wizard.getEnergyConsumption());
+                    MazeObject.setDistance(wizard.getPathLength());
+
+                    PlayAnimationActivity.win();
+                }
+
+
             }
             if (drive == RobotDriver.Driver.WallFollower) {
                 WallFollower wally = new WallFollower();
@@ -699,16 +709,27 @@ public class StatePlaying implements State, Runnable {
                 //Attempt to drive to exit
                 try {
                     wally.drive2Exit();
-                    pathlength = wally.getPathLength();
                 }
                 catch (Exception c) {
                     c.printStackTrace();
                     System.out.println("WallFollower Drive2Exit Failed Somehow"); }
-                System.out.println(bot.getBatteryLevel());
+
+                try { Thread.sleep(400); }
+                catch (InterruptedException c) { }
+
+                if (maze.getDistanceToExit(px, py) == 1) {
+                    handleUserInput(UserInput.UP, 0);
+
+                    MazeObject.setBattery(wally.getEnergyConsumption());
+                    MazeObject.setDistance(wally.getPathLength());
+
+                    PlayAnimationActivity.win();
+                }
             }
         }
     }
 }
 
+//*/
 
 

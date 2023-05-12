@@ -102,7 +102,16 @@ public class WallFollower implements RobotDriver {
 	public boolean drive2Exit() throws Exception {
 		
 		while (robot.isAtExit() == false) {
-			drive1Step2Exit();
+			if (MazeObject.botOn == false) {
+				Thread.sleep(100);
+			}
+			else {
+				drive1Step2Exit();
+			}
+		}
+		while (robot.distanceToObstacle(Direction.FORWARD) < 100) {
+			robot.rotate(Turn.RIGHT);
+			Thread.sleep(100);
 		}
 		return (useMaze.getDistanceToExit(robot.getCurrentPosition()[0], robot.getCurrentPosition()[1]) == 0 && useMaze.getExitPosition() == robot.getCurrentPosition()) ? true : false;
 	}
